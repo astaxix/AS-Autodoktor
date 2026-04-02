@@ -388,10 +388,6 @@ export default function App() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent" />
               </div>
-              <div className="absolute -bottom-4 -right-4 md:-bottom-10 md:-right-10 bg-brand-orange p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] shadow-neon">
-                <div className="text-brand-black font-black text-2xl md:text-5xl mb-1 md:mb-2">10+</div>
-                <div className="text-brand-black/60 text-[8px] md:text-[10px] font-black uppercase tracking-widest">Jahre Erfahrung</div>
-              </div>
             </motion.div>
 
             <motion.div
