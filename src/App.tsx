@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isImpressumOpen, setIsImpressumOpen] = useState(false);
+  const [isDatenschutzOpen, setIsDatenschutzOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -549,7 +550,12 @@ export default function App() {
               >
                 Impressum
               </button>
-              <a href="#" className="text-white/30 hover:text-brand-orange transition-colors text-xs font-black uppercase tracking-widest">Datenschutz</a>
+              <button 
+                onClick={() => setIsDatenschutzOpen(true)}
+                className="text-white/30 hover:text-brand-orange transition-colors text-xs font-black uppercase tracking-widest"
+              >
+                Datenschutz
+              </button>
             </div>
           </div>
           <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -656,13 +662,122 @@ export default function App() {
                     </div>
                   </div>
                 </section>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Datenschutz Modal */}
+      <AnimatePresence>
+        {isDatenschutzOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsDatenschutzOpen(false)}
+              className="absolute inset-0 bg-brand-black/80 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-4xl max-h-[85vh] bg-brand-black border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col"
+            >
+              <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
+                <h2 className="text-xl md:text-3xl font-display font-black uppercase tracking-tight">Datenschutzerklärung</h2>
+                <button 
+                  onClick={() => setIsDatenschutzOpen(false)}
+                  className="p-2 hover:bg-white/5 rounded-full transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="p-8 md:p-12 overflow-y-auto custom-scrollbar text-white/70 space-y-8">
+                <section>
+                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">1. Datenschutz auf einen Blick</h3>
+                  <div className="space-y-4 text-sm leading-relaxed">
+                    <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+                    <div>
+                      <p className="font-bold text-white mb-2">Datenerfassung auf dieser Website</p>
+                      <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
+                    </div>
+                  </div>
+                </section>
 
                 <section>
-                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">Datenschutzerklärung</h3>
+                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">2. Allgemeine Hinweise und Pflichtinformationen</h3>
                   <div className="space-y-4 text-sm leading-relaxed">
                     <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
-                    <p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.</p>
-                    <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich. (Hinweis: Weitere Details zu Facebook, Google Analytics und Twitter finden Sie in der vollständigen Datenschutzerklärung in unserem Impressum-Bereich.)</p>
+                    <div>
+                      <p className="font-bold text-white mb-2">Hinweis zur verantwortlichen Stelle</p>
+                      <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+                      <div className="mt-2 text-white">
+                        <p>Ahmed Siala</p>
+                        <p>Schillerstraße 12, 38440 Wolfsburg</p>
+                        <p>E-Mail: info@as-mietwagen-service.de</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-2">Widerruf Ihrer Einwilligung zur Datenverarbeitung</p>
+                      <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-2">Beschwerderecht bei der zuständigen Aufsichtsbehörde</p>
+                      <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">3. Datenerfassung auf dieser Website</h3>
+                  <div className="space-y-4 text-sm leading-relaxed">
+                    <div>
+                      <p className="font-bold text-white mb-2">Cookies</p>
+                      <p>Unsere Internetseiten verwenden so genannte „Cookies“. Cookies sind kleine Textdateien und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese selbst löschen oder eine automatische Löschung durch Ihren Webbrowser erfolgt.</p>
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-2">Server-Log-Dateien</p>
+                      <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind: Browsertyp und Browserversion, verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden Rechners, Uhrzeit der Serveranfrage und IP-Adresse. Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.</p>
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-2">Kontaktformular / Buchungsanfrage</p>
+                      <p>Wenn Sie uns per Kontaktformular oder Buchungsanfrage Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">4. Analyse-Tools und Werbung</h3>
+                  <div className="space-y-4 text-sm leading-relaxed">
+                    <div>
+                      <p className="font-bold text-white mb-2">Google Analytics / Vercel Analytics</p>
+                      <p>Diese Website nutzt Funktionen von Analyse-Diensten zur Verbesserung unseres Angebots. Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der Analyse des Nutzerverhaltens, um sowohl sein Webangebot als auch seine Werbung zu optimieren.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">5. Plugins und Tools</h3>
+                  <div className="space-y-4 text-sm leading-relaxed">
+                    <div>
+                      <p className="font-bold text-white mb-2">Google Maps</p>
+                      <p>Diese Seite nutzt über eine API den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited („Google“), Gordon House, Barrow Street, Dublin 4, Irland. Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h3 className="text-xl font-black text-white uppercase mb-4 tracking-tight">6. Ihre Rechte</h3>
+                  <div className="space-y-4 text-sm leading-relaxed">
+                    <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden.</p>
                   </div>
                 </section>
               </div>
